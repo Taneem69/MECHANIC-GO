@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 64 100% 55%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 64 100% 55%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 64 100% 55%;
+    --radius: 0.625rem;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 64 100% 55%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 64 100% 55%;
+
+    --obsidian: #000000;
+    --mechanic-yellow: #F7FF19;
+    --steel-gray: #EFEFEF;
+    --brushed-metal: #D9D9D9;
+    --pure-white: #FFFFFF;
+    --surface-dark: #1A1A1A;
+    --surface-light: #F5F5F5;
+    --surface-glass: rgba(255, 255, 255, 0.1);
+    --status-online: #4ADE80;
+    --status-busy: #F7FF19;
+    --status-offline: #EF4444;
+    --warning-amber: #F59E0B;
+  }
+
+  body {
+    @apply bg-black text-white;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .font-display {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .font-heading {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#F7FF19] text-black px-8 py-3 rounded-full font-semibold text-sm uppercase tracking-wider transition-all duration-300;
+  }
+  .btn-primary:hover {
+    @apply scale-105;
+    box-shadow: 0 0 20px rgba(247, 255, 25, 0.4);
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border border-white/30 text-white px-8 py-3 rounded-full font-semibold text-sm uppercase tracking-wider transition-all duration-300;
+  }
+  .btn-secondary:hover {
+    @apply bg-white/10;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #F7FF19 0%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 0 30px rgba(247, 255, 25, 0.15);
+  }
+}
+
+@layer utilities {
+  .text-hero {
+    font-size: clamp(60px, 10vw, 120px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .text-h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.1;
+  }
+
+  .text-h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.15;
+  }
+
+  .text-h3 {
+    font-size: clamp(22px, 2.5vw, 32px);
+    line-height: 1.25;
+  }
+
+  .text-h4 {
+    font-size: clamp(18px, 1.8vw, 24px);
+    line-height: 1.3;
+  }
+
+  .text-body-lg {
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .text-caption {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .text-mono-sm {
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F7FF19;
+}
+
+/* Rolling Gallery */
+.rolling-gallery-wrapper {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 900px;
+}
+
+.rolling-gallery-row {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  gap: 2vw;
+  transform-style: preserve-3d;
+}
+
+.rolling-gallery-card {
+  flex-shrink: 0;
+  width: 300px;
+  height: 450px;
+  background: #1A1A1A;
+  border-radius: 16px;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Kinetic Wall */
+.kinetic-wall-container {
+  min-height: 100vh;
+  background: #000;
+  overflow: hidden;
+  position: relative;
+}
+
+.kinetic-wall-row {
+  display: flex;
+  gap: 3vw;
+  white-space: nowrap;
+  padding: 8px 0;
+  will-change: transform;
+}
+
+.kinetic-wall-item {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(20px, 3vw, 48px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.kinetic-wall-item.active {
+  color: #F7FF19;
+}
+
+.kinetic-wall-item.focus {
+  color: #FFFFFF;
+}
