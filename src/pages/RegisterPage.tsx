@@ -1,13 +1,26 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Wrench, Eye, EyeOff, ArrowLeft, User, HardHat } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Wrench, ArrowLeft, User, HardHat } from 'lucide-react'
+import FormField from '../components/FormField'
+import { registerSchema, type RegisterValues } from '../lib/validation'
 
 type Role = 'customer' | 'mechanic'
 
 export default function RegisterPage() {
-  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
   const [role, setRole] = useState<Role>('customer')
   const [step, setStep] = useState(1)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterValues>({ resolver: zodResolver(registerSchema), mode: 'onTouched' })
+
+  // DEMO ONLY: no backend yet. Replace with POST /api/v1/auth/register (server validates again,
+  // hashes the password with Argon2id, sends the verification email/SMS).
+  const onSubmit = handleSubmit(() => navigate(role === 'mechanic' ? '/mechanic' : '/customer'))
 
   const roles = [
     {
@@ -29,8 +42,8 @@ export default function RegisterPage() {
     <div className="min-h-[100dvh] bg-black flex">
       {/* Left Panel - Visual */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <img
-          src="/images/hero-mechanic-hands.jpg"
+        <img loading="lazy" decoding="async" width={864} height={1184}
+          src="/images/hero-mechanic-hands.webp"
           alt="Mechanic working"
           className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
@@ -105,6 +118,8 @@ export default function RegisterPage() {
                 {roles.map((r) => (
                   <button
                     key={r.id}
+                    type="button"
+                    aria-pressed={role === r.id}
                     onClick={() => setRole(r.id)}
                     className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 text-left ${
                       role === r.id
@@ -131,6 +146,7 @@ export default function RegisterPage() {
                 ))}
               </div>
               <button
+                type="button"
                 onClick={() => setStep(2)}
                 className="btn-primary block text-center w-full"
               >
@@ -140,91 +156,77 @@ export default function RegisterPage() {
           )}
 
           {step === 2 && (
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={onSubmit} noValidate>
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-mono-sm text-white/50 mb-2 block">
-                    FIRST NAME
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="John"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19] transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="text-mono-sm text-white/50 mb-2 block">
-                    LAST NAME
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Doe"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19] transition-colors"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="text-mono-sm text-white/50 mb-2 block">
-                  EMAIL
-                </label>
-                <input
-                  type="email"
-                  placeholder="you@example.com"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19] transition-colors"
+                <FormField
+                  label="FIRST NAME"
+                  autoComplete="given-name"
+                  placeholder="John"
+                  error={errors.firstName?.message}
+                  {...register('firstName')}
+                />
+                <FormField
+                  label="LAST NAME"
+                  autoComplete="family-name"
+                  placeholder="Doe"
+                  error={errors.lastName?.message}
+                  {...register('lastName')}
                 />
               </div>
 
-              <div>
-                <label className="text-mono-sm text-white/50 mb-2 block">
-                  PHONE
-                </label>
-                <input
-                  type="tel"
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19] transition-colors"
-                />
-              </div>
+              <FormField
+                label="EMAIL"
+                type="email"
+                autoComplete="email"
+                inputMode="email"
+                placeholder="you@example.com"
+                error={errors.email?.message}
+                {...register('email')}
+              />
+
+              <FormField
+                label="PHONE"
+                type="tel"
+                autoComplete="tel"
+                inputMode="tel"
+                placeholder="+1 (555) 000-0000"
+                error={errors.phone?.message}
+                {...register('phone')}
+              />
+
+              <FormField
+                label="PASSWORD"
+                type="password"
+                autoComplete="new-password"
+                placeholder="Create a strong password"
+                error={errors.password?.message}
+                {...register('password')}
+              />
 
               <div>
-                <label className="text-mono-sm text-white/50 mb-2 block">
-                  PASSWORD
-                </label>
-                <div className="relative">
+                <label className="flex items-start gap-2 cursor-pointer">
                   <input
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Create a strong password"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 pr-12 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19] transition-colors"
+                    type="checkbox"
+                    className="w-4 h-4 rounded accent-[#F7FF19] mt-0.5"
+                    aria-invalid={errors.acceptTerms ? true : undefined}
+                    {...register('acceptTerms')}
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="w-5 h-5" />
-                    ) : (
-                      <Eye className="w-5 h-5" />
-                    )}
-                  </button>
-                </div>
+                  <span className="text-sm text-white/50">
+                    I agree to the{' '}
+                    <span className="text-[#F7FF19]">Terms of Service</span> and{' '}
+                    <span className="text-[#F7FF19]">Privacy Policy</span>
+                  </span>
+                </label>
+                {errors.acceptTerms && (
+                  <p role="alert" className="mt-1.5 text-sm text-red-400">
+                    {errors.acceptTerms.message}
+                  </p>
+                )}
               </div>
 
-              <label className="flex items-start gap-2 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded accent-[#F7FF19] mt-0.5" />
-                <span className="text-sm text-white/50">
-                  I agree to the{' '}
-                  <span className="text-[#F7FF19]">Terms of Service</span> and{' '}
-                  <span className="text-[#F7FF19]">Privacy Policy</span>
-                </span>
-              </label>
-
-              <Link
-                to={role === 'mechanic' ? '/mechanic' : '/customer'}
-                className="btn-primary block text-center w-full"
-              >
+              <button type="submit" className="btn-primary block text-center w-full">
                 CREATE ACCOUNT
-              </Link>
+              </button>
 
               <button
                 type="button"

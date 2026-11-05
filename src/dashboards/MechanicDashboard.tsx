@@ -151,7 +151,7 @@ export default function MechanicDashboard() {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
         {/* Top Bar */}
         <header className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
           <button
@@ -179,7 +179,7 @@ export default function MechanicDashboard() {
                 <>
                   <div className="w-2 h-2 rounded-full bg-white/30" />
                   <span className="text-sm font-medium text-white/50">Offline</span>
-                  <ToggleLeft className="w-5 h-5 text-white/30" />
+                  <ToggleLeft className="w-5 h-5 text-white/50" />
                 </>
               )}
             </div>
@@ -388,7 +388,7 @@ export default function MechanicDashboard() {
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-[#F7FF19] rounded-full"
-                        style={{ width: `${70 + Math.random() * 30}%` }}
+                        style={{ width: `${70 + ((i * 13) % 30)}%` }}
                       />
                     </div>
                   </div>
@@ -441,7 +441,7 @@ export default function MechanicDashboard() {
             </div>
           )}
         </div>
-      </main>
+      </div>
     </div>
   )
 }

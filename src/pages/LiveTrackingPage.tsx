@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   ArrowLeft,
   Phone,
@@ -26,7 +26,6 @@ const mockMechanic = {
 }
 
 export default function LiveTrackingPage() {
-  const { id: _id } = useParams()
   const [status, setStatus] = useState<Status>('en_route')
   const [eta, setEta] = useState(12)
   const [chatOpen, setChatOpen] = useState(false)
@@ -224,7 +223,7 @@ export default function LiveTrackingPage() {
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder="Type a message..."
-                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19]"
+                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-[#F7FF19]"
               />
               <button
                 onClick={handleSendMessage}

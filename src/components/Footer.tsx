@@ -125,15 +125,15 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-mono-sm text-white/30">
+          <p className="text-mono-sm text-white/50">
             &copy; 2026 MechanicGo. All rights reserved.
           </p>
           <div className="flex gap-4">
-            <span className="text-mono-sm text-white/30">Available on</span>
+            <span className="text-mono-sm text-white/50">Available on</span>
             <span className="text-mono-sm text-[#F7FF19] cursor-pointer hover:underline">
               App Store
             </span>
-            <span className="text-mono-sm text-white/30">&</span>
+            <span className="text-mono-sm text-white/50">&</span>
             <span className="text-mono-sm text-[#F7FF19] cursor-pointer hover:underline">
               Google Play
             </span>

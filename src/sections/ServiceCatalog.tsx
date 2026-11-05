@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react'
 
 const services = [
-  { title: 'TIRE CHANGE', category: 'ROADSIDE', image: '/images/service-tire.jpg' },
-  { title: 'BATTERY JUMP', category: 'ELECTRICAL', image: '/images/service-battery.jpg' },
-  { title: 'OIL LEAK FIX', category: 'ENGINE', image: '/images/hero-mechanic-hands.jpg' },
-  { title: 'BRAKE PADS', category: 'BRAKES', image: '/images/service-tools.jpg' },
-  { title: 'ENGINE DIAG', category: 'ENGINE', image: '/images/service-dashboard.jpg' },
-  { title: 'TOWING', category: 'ROADSIDE', image: '/images/hero-tow-truck.jpg' },
-  { title: 'TRANSMISSION', category: 'REPAIR', image: '/images/hero-city-lights.jpg' },
-  { title: 'AC REPAIR', category: 'COOLING', image: '/images/service-battery.jpg' },
+  { title: 'TIRE CHANGE', category: 'ROADSIDE', image: '/images/service-tire.webp' },
+  { title: 'BATTERY JUMP', category: 'ELECTRICAL', image: '/images/service-battery.webp' },
+  { title: 'OIL LEAK FIX', category: 'ENGINE', image: '/images/hero-mechanic-hands.webp' },
+  { title: 'BRAKE PADS', category: 'BRAKES', image: '/images/service-tools.webp' },
+  { title: 'ENGINE DIAG', category: 'ENGINE', image: '/images/service-dashboard.webp' },
+  { title: 'TOWING', category: 'ROADSIDE', image: '/images/hero-tow-truck.webp' },
+  { title: 'TRANSMISSION', category: 'REPAIR', image: '/images/hero-city-lights.webp' },
+  { title: 'AC REPAIR', category: 'COOLING', image: '/images/service-battery.webp' },
 ]
 
 const row1 = [...services, ...services]
@@ -103,7 +103,7 @@ export default function ServiceCatalog() {
           {row1.map((service, i) => (
             <div key={`r1-${i}`} className="rolling-gallery-card group cursor-pointer">
               <div className="relative w-full h-full">
-                <img
+                <img loading="lazy" decoding="async" width={864} height={1184}
                   src={service.image}
                   alt={service.title}
                   className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
@@ -134,7 +134,7 @@ export default function ServiceCatalog() {
           {row2.map((service, i) => (
             <div key={`r2-${i}`} className="rolling-gallery-card group cursor-pointer">
               <div className="relative w-full h-full">
-                <img
+                <img loading="lazy" decoding="async" width={864} height={1184}
                   src={service.image}
                   alt={service.title}
                   className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-300"

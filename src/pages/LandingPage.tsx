@@ -15,11 +15,11 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function LandingPage() {
   useEffect(() => {
-    // Fade out the Three.js canvas as user scrolls past the hero section.
-    // DistortionSphere renders a <canvas> — this selector finds it correctly.
-    const canvas = document.querySelector('canvas')
-    if (canvas) {
-      gsap.to(canvas, {
+    // Fade the 3D background out as the user scrolls past the hero.
+    // The layer is selected by attribute because the <canvas> inside it is created lazily.
+    const layer = document.querySelector('[data-hero-canvas]')
+    if (layer) {
+      gsap.to(layer, {
         opacity: 0,
         scrollTrigger: {
           trigger: '#how-it-works',
@@ -39,14 +39,14 @@ export default function LandingPage() {
     <div className="relative">
       <DistortionSphere />
       <Navbar />
-      <main className="relative z-10">
+      <div className="relative z-10">
         <HeroSection />
         <HowItWorks />
         <ServiceCatalog />
         <CostEstimator />
         <CoverageArea />
         <SocialProof />
-      </main>
+      </div>
       <Footer />
     </div>
   )

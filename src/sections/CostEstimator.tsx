@@ -30,7 +30,7 @@ function useTypewriter(text: string, speed = 30, trigger: string) {
       }
     }, speed)
     return () => clearInterval(interval)
-  }, [text, trigger])
+  }, [text, trigger, speed])
 
   return display
 }
@@ -138,7 +138,7 @@ export default function CostEstimator() {
                     <span
                       key={n}
                       className={`text-xs font-mono ${
-                        n <= severity ? 'text-[#F7FF19]' : 'text-white/30'
+                        n <= severity ? 'text-[#F7FF19]' : 'text-white/50'
                       }`}
                     >
                       L{n}

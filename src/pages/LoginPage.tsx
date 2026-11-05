@@ -1,19 +1,33 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Wrench, Eye, EyeOff, ArrowLeft } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Wrench, ArrowLeft } from 'lucide-react'
+import FormField from '../components/FormField'
+import { loginSchema, type LoginValues } from '../lib/validation'
+
+type Role = 'customer' | 'mechanic' | 'admin'
+const ROLE_HOME: Record<Role, string> = { customer: '/customer', mechanic: '/mechanic', admin: '/admin' }
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [role, setRole] = useState<'customer' | 'mechanic' | 'admin'>('customer')
+  const navigate = useNavigate()
+  const [role, setRole] = useState<Role>('customer')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginValues>({ resolver: zodResolver(loginSchema), mode: 'onTouched' })
+
+  // DEMO ONLY: there is no backend yet, so a valid form just opens the dashboard.
+  // Replace with: POST /api/v1/auth/login -> httpOnly Secure cookie, then redirect by the role the SERVER returns.
+  const onSubmit = handleSubmit(() => navigate(ROLE_HOME[role]))
 
   return (
     <div className="min-h-[100dvh] bg-black flex">
       {/* Left Panel - Visual */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <img
-          src="/images/hero-tow-truck.jpg"
+        <img loading="lazy" decoding="async" width={864} height={1184}
+          src="/images/hero-tow-truck.webp"
           alt="Mechanic"
           className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
@@ -70,10 +84,12 @@ export default function LoginPage() {
           </p>
 
           {/* Role Selector */}
-          <div className="flex gap-2 mb-8 p-1 bg-white/5 rounded-full">
+          <div role="group" aria-label="Sign in as" className="flex gap-2 mb-8 p-1 bg-white/5 rounded-full">
             {(['customer', 'mechanic', 'admin'] as const).map((r) => (
               <button
                 key={r}
+                type="button"
+                aria-pressed={role === r}
                 onClick={() => setRole(r)}
                 className={`flex-1 py-2 rounded-full text-sm font-medium transition-all duration-300 capitalize ${
                   role === r
@@ -86,62 +102,39 @@ export default function LoginPage() {
             ))}
           </div>
 
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-            <div>
-              <label className="text-mono-sm text-white/50 mb-2 block">
-                EMAIL
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19] transition-colors"
-              />
-            </div>
+          <form className="space-y-4" onSubmit={onSubmit} noValidate>
+            <FormField
+              label="EMAIL"
+              type="email"
+              autoComplete="email"
+              inputMode="email"
+              placeholder="you@example.com"
+              error={errors.email?.message}
+              {...register('email')}
+            />
 
-            <div>
-              <label className="text-mono-sm text-white/50 mb-2 block">
-                PASSWORD
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 pr-12 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19] transition-colors"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors"
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
-            </div>
+            <FormField
+              label="PASSWORD"
+              type="password"
+              autoComplete="current-password"
+              placeholder="Enter your password"
+              error={errors.password?.message}
+              {...register('password')}
+            />
 
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" className="w-4 h-4 rounded accent-[#F7FF19]" />
                 <span className="text-sm text-white/50">Remember me</span>
               </label>
-              <button className="text-sm text-[#F7FF19] hover:underline">
+              <button type="button" className="text-sm text-[#F7FF19] hover:underline">
                 Forgot password?
               </button>
             </div>
 
-            <Link
-              to={role === 'admin' ? '/admin' : role === 'mechanic' ? '/mechanic' : '/customer'}
-              className="btn-primary block text-center w-full"
-            >
+            <button type="submit" className="btn-primary block text-center w-full">
               SIGN IN
-            </Link>
+            </button>
           </form>
 
           <p className="text-center text-white/50 mt-6">

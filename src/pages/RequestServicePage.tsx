@@ -37,7 +37,7 @@ export default function RequestServicePage() {
   const [photos, setPhotos] = useState<string[]>([])
 
   const handlePhotoUpload = () => {
-    setPhotos([...photos, `/images/service-tools.jpg`])
+    setPhotos([...photos, `/images/service-tools.webp`])
   }
 
   const handleSubmit = () => {
@@ -159,7 +159,7 @@ export default function RequestServicePage() {
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     placeholder="Enter address or use current location"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-12 pr-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19]"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-12 pr-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:border-[#F7FF19]"
                   />
                 </div>
                 <button className="text-sm text-[#F7FF19] mt-2 hover:underline">
@@ -177,21 +177,21 @@ export default function RequestServicePage() {
                     placeholder="Year"
                     value={vehicleInfo.year}
                     onChange={(e) => setVehicleInfo({ ...vehicleInfo, year: e.target.value })}
-                    className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19]"
+                    className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:border-[#F7FF19]"
                   />
                   <input
                     type="text"
                     placeholder="Make"
                     value={vehicleInfo.make}
                     onChange={(e) => setVehicleInfo({ ...vehicleInfo, make: e.target.value })}
-                    className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19]"
+                    className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:border-[#F7FF19]"
                   />
                   <input
                     type="text"
                     placeholder="Model"
                     value={vehicleInfo.model}
                     onChange={(e) => setVehicleInfo({ ...vehicleInfo, model: e.target.value })}
-                    className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19]"
+                    className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:border-[#F7FF19]"
                   />
                 </div>
               </div>
@@ -205,7 +205,7 @@ export default function RequestServicePage() {
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Describe what's happening with your vehicle..."
                   rows={4}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F7FF19] resize-none"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:border-[#F7FF19] resize-none"
                 />
               </div>
 
@@ -241,8 +241,8 @@ export default function RequestServicePage() {
                   onClick={handlePhotoUpload}
                   className="aspect-square rounded-xl border-2 border-dashed border-white/20 flex flex-col items-center justify-center gap-2 hover:border-[#F7FF19] hover:bg-[#F7FF19]/5 transition-all"
                 >
-                  <Camera className="w-8 h-8 text-white/30" />
-                  <span className="text-xs text-white/30">Add Photo</span>
+                  <Camera className="w-8 h-8 text-white/50" />
+                  <span className="text-xs text-white/50">Add Photo</span>
                 </button>
               </div>
 

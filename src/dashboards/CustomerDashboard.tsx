@@ -116,7 +116,7 @@ export default function CustomerDashboard() {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
         {/* Top Bar */}
         <header className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
           <button
@@ -275,7 +275,7 @@ export default function CustomerDashboard() {
                       {vehicle.color} • {vehicle.plate}
                     </div>
                   </div>
-                  <button className="text-white/30 hover:text-white transition-colors">
+                  <button className="text-white/50 hover:text-white transition-colors">
                     <Settings className="w-5 h-5" />
                   </button>
                 </div>
@@ -300,7 +300,7 @@ export default function CustomerDashboard() {
                       <div>
                         <div className="font-semibold text-white">{item.service}</div>
                         <div className="text-sm text-white/50">{item.mechanic}</div>
-                        <div className="text-sm text-white/30">{item.date}</div>
+                        <div className="text-sm text-white/50">{item.date}</div>
                       </div>
                     </div>
                     <div className="text-right">
@@ -403,7 +403,7 @@ export default function CustomerDashboard() {
             </div>
           )}
         </div>
-      </main>
+      </div>
     </div>
   )
 }

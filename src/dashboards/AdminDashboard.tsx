@@ -160,7 +160,7 @@ export default function AdminDashboard() {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
         {/* Top Bar */}
         <header className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between gap-4">
           <button
@@ -174,13 +174,13 @@ export default function AdminDashboard() {
 
           {/* Search */}
           <div className="hidden sm:flex items-center flex-1 max-w-md bg-white/5 border border-white/10 rounded-lg px-4 py-2">
-            <Search className="w-4 h-4 text-white/30 mr-2" />
+            <Search className="w-4 h-4 text-white/50 mr-2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search users, transactions..."
-              className="bg-transparent text-sm text-white placeholder:text-white/30 focus:outline-none flex-1"
+              className="bg-transparent text-sm text-white placeholder:text-white/50 focus:outline-none flex-1"
             />
           </div>
 
@@ -295,7 +295,7 @@ export default function AdminDashboard() {
                               {tx.status}
                             </span>
                           </td>
-                          <td className="py-3 text-white/40 text-sm">{tx.time}</td>
+                          <td className="py-3 text-white/55 text-sm">{tx.time}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -326,20 +326,20 @@ export default function AdminDashboard() {
                         <p className="text-sm text-white/50">{mechanic.email}</p>
                       </div>
                     </div>
-                    <span className="text-sm text-white/40">{mechanic.applied}</span>
+                    <span className="text-sm text-white/55">{mechanic.applied}</span>
                   </div>
 
                   <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
                     <div>
-                      <span className="text-white/40">Specialty</span>
+                      <span className="text-white/55">Specialty</span>
                       <p className="text-white">{mechanic.specialty}</p>
                     </div>
                     <div>
-                      <span className="text-white/40">Experience</span>
+                      <span className="text-white/55">Experience</span>
                       <p className="text-white">{mechanic.experience}</p>
                     </div>
                     <div>
-                      <span className="text-white/40">Documents</span>
+                      <span className="text-white/55">Documents</span>
                       <p className="text-white">{mechanic.documents}/3 uploaded</p>
                     </div>
                   </div>
@@ -397,7 +397,7 @@ export default function AdminDashboard() {
                               {(4.5 + i * 0.1).toFixed(1)}
                             </span>
                           </td>
-                          <td className="py-3 text-white/40 text-sm">
+                          <td className="py-3 text-white/55 text-sm">
                             {['Jan', 'Feb', 'Mar', 'Apr', 'May'][i]} 2025
                           </td>
                         </tr>
@@ -540,7 +540,7 @@ export default function AdminDashboard() {
                 </h3>
                 <div className="grid grid-cols-7 gap-2">
                   {Array.from({ length: 49 }, (_, i) => {
-                    const intensity = Math.random()
+                    const intensity = ((i * 37 + 11) % 100) / 100 // stable demo data
                     return (
                       <div
                         key={i}
@@ -557,7 +557,7 @@ export default function AdminDashboard() {
                     )
                   })}
                 </div>
-                <div className="flex items-center justify-between mt-4 text-xs text-white/40">
+                <div className="flex items-center justify-between mt-4 text-xs text-white/55">
                   <span>Less</span>
                   <div className="flex gap-1">
                     <div className="w-3 h-3 rounded-sm bg-white/5" />
@@ -638,7 +638,7 @@ export default function AdminDashboard() {
             </div>
           )}
         </div>
-      </main>
+      </div>
     </div>
   )
 }
